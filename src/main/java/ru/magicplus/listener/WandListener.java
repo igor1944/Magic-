@@ -1,8 +1,10 @@
 package ru.magicplus.listener;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import ru.magicplus.config.MessageService;
@@ -32,8 +34,7 @@ public final class WandListener implements Listener {
         }
         event.setCancelled(true);
 
-        if (!event.getPlayer().hasPermission("magicplus.wand")) {
-            messages.send(event.getPlayer(), "no-permission");
+        if (!canUse(event.getPlayer())) {
             return;
         }
         if (action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) {
@@ -41,5 +42,25 @@ public final class WandListener implements Listener {
         } else {
             spellManager.castSelected(event.getPlayer());
         }
+    }
+
+    @EventHandler
+    public void onUseEntity(PlayerInteractEntityEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND
+                || !wandService.isWand(event.getPlayer().getInventory().getItemInMainHand())) {
+            return;
+        }
+        event.setCancelled(true);
+        if (canUse(event.getPlayer())) {
+            spellManager.castSelected(event.getPlayer());
+        }
+    }
+
+    private boolean canUse(Player player) {
+        if (player.hasPermission("magicplus.wand")) {
+            return true;
+        }
+        messages.send(player, "no-permission");
+        return false;
     }
 }

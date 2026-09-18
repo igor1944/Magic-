@@ -2,7 +2,7 @@ name: Сборка Magic+
 
 on:
   push:
-    branches: [main, arena/01a0b432-magic]
+    branches: [main]
   pull_request:
 
 permissions:
