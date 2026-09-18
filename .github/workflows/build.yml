@@ -1,0 +1,30 @@
+name: Сборка Magic+
+
+on:
+  push:
+    branches: [main, arena/01a0b432-magic]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получение исходников
+        uses: actions/checkout@v4
+      - name: Установка Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Сборка Maven
+        run: mvn --batch-mode --no-transfer-progress verify
+      - name: Сохранение JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: MagicPlus
+          path: target/MagicPlus-*.jar
+          if-no-files-found: error

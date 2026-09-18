@@ -1,0 +1,38 @@
+name: MagicPlus
+version: '${project.version}'
+main: ru.magicplus.MagicPlusPlugin
+api-version: '1.18'
+author: MagicPlus
+prefix: Magic+
+description: Система магии, маны, восстановления и негативных эффектов.
+
+commands:
+  magic:
+    description: Главное управление плагином Magic+
+    usage: /magic help
+    aliases: [magicplus, mag]
+
+permissions:
+  magicplus.use:
+    description: Использование основных команд Magic+
+    default: true
+  magicplus.wand:
+    description: Использование волшебного жезла
+    default: true
+  magicplus.spell.*:
+    description: Доступ ко всем заклинаниям
+    default: true
+    children:
+      magicplus.spell.healing: true
+      magicplus.spell.cleansing: true
+      magicplus.spell.fireball: true
+      magicplus.spell.poison: true
+      magicplus.spell.weakness: true
+      magicplus.spell.drain: true
+  magicplus.admin:
+    description: Административные команды Magic+
+    default: op
+    children:
+      magicplus.use: true
+      magicplus.wand: true
+      magicplus.spell.*: true

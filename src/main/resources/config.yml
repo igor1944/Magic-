@@ -1,0 +1,103 @@
+# ================================================================
+#                           Magic+
+#      Настройки маны, волшебного жезла и всех заклинаний.
+# После изменения используйте: /magic reload
+# ================================================================
+
+mana:
+  # Стартовый запас нового игрока и его максимальная мана.
+  initial: 100.0
+  default-max: 100.0
+
+  regeneration:
+    enabled: true
+    # Сколько маны восстанавливается за один период.
+    amount: 2.0
+    # 20 тиков = 1 секунда.
+    interval-ticks: 20
+
+  action-bar:
+    enabled: true
+    update-interval-ticks: 10
+    segments: 20
+    # Доступные переменные: {bar}, {mana}, {max}, {spell}
+    format: '&5Мана &8[&d{bar}&8] &f{mana}&7/&f{max} &8| &b{spell}'
+    full-symbol: '|'
+    empty-symbol: '|'
+    full-color: '&d'
+    empty-color: '&7'
+
+wand:
+  material: BLAZE_ROD
+  name: '&d&lВолшебный жезл &7[Magic+]'
+  lore:
+    - '&7ЛКМ — выбрать следующее заклинание'
+    - '&7ПКМ — применить выбранное заклинание'
+    - ''
+    - '&8Текущая магия отображается в полоске маны.'
+  custom-model-data: 0
+  # Выдать жезл один раз при первом входе игрока.
+  give-on-first-join: true
+
+# Радиус луча, которым выбирается существо перед игроком.
+targeting:
+  ray-size: 0.55
+
+spells:
+  healing:
+    enabled: true
+    display-name: '&aИсцеление'
+    description: 'Восстанавливает здоровье себе или выбранной цели.'
+    mana-cost: 25.0
+    cooldown-seconds: 8.0
+    range: 12.0
+    heal-amount: 8.0
+
+  cleansing:
+    enabled: true
+    display-name: '&bОчищение'
+    description: 'Снимает негативные эффекты с себя или выбранной цели.'
+    mana-cost: 30.0
+    cooldown-seconds: 15.0
+    range: 12.0
+
+  fireball:
+    enabled: true
+    display-name: '&6Огненный шар'
+    description: 'Запускает огненный шар по направлению взгляда.'
+    mana-cost: 35.0
+    cooldown-seconds: 6.0
+    speed: 1.35
+    incendiary: true
+    yield: 0.0
+
+  poison:
+    enabled: true
+    display-name: '&2Ядовитое касание'
+    description: 'Отравляет выбранное живое существо.'
+    mana-cost: 30.0
+    cooldown-seconds: 10.0
+    range: 16.0
+    duration-seconds: 7
+    amplifier: 0
+
+  weakness:
+    enabled: true
+    display-name: '&7Печать слабости'
+    description: 'Накладывает слабость и замедление на цель.'
+    mana-cost: 35.0
+    cooldown-seconds: 12.0
+    range: 16.0
+    duration-seconds: 8
+    weakness-amplifier: 1
+    slowness-amplifier: 0
+
+  drain:
+    enabled: true
+    display-name: '&cПохищение жизни'
+    description: 'Наносит урон цели и восстанавливает здоровье магу.'
+    mana-cost: 40.0
+    cooldown-seconds: 14.0
+    range: 12.0
+    damage: 6.0
+    heal-amount: 5.0
